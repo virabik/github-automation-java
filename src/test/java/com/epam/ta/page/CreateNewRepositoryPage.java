@@ -17,18 +17,18 @@ public class CreateNewRepositoryPage extends AbstractPage
 	private final String BASE_URL = "http://www.github.com/new";
 	private final Logger logger = LogManager.getRootLogger();
 
-	@FindBy(id = "repository_name")
+	@FindBy(id = ":r4:")
 	private WebElement inputRepositoryName;
 
-	@FindBy(id = "repository_description")
+	@FindBy(id = ":r5:")
 	private WebElement inputRepositoryDescription;
 
-	@FindBy(xpath = "//form[@id='new_repository']//button[@type='submit']")
+	@FindBy(xpath = "//span[contains(text(), 'Create repository')]")
 	private WebElement buttonCreate;
 
 	private final By labelEmptyRepoSetupOptionLocator = By.xpath("//h3/strong[text()='Quick setup']");
 
-	@FindBy(xpath = "//a[@data-pjax='#js-repo-pjax-container']")
+	@FindBy(xpath = "//a[@data-pjax='#repo-content-pjax-container' and contains(text(), 'testRepo')]")
 	private WebElement linkCurrentRepository;
 
 	public CreateNewRepositoryPage(WebDriver driver)
@@ -44,18 +44,19 @@ public class CreateNewRepositoryPage extends AbstractPage
 		return labelEmptyRepoSetupOption.isDisplayed();
 	}
 
-	public CreateNewRepositoryPage createNewRepository(String repositoryName, String repositoryDescription)
-	{
+	public CreateNewRepositoryPage createNewRepository(String repositoryName, String repositoryDescription) throws InterruptedException {
 		inputRepositoryName.sendKeys(repositoryName);
 		inputRepositoryDescription.sendKeys(repositoryDescription);
+		Thread.sleep(1000);
 		buttonCreate.click();
+		Thread.sleep(1000);
 		logger.info("Created repository with name: [" + repositoryName +
 				"[ and description: [" + repositoryDescription + "]");
 		return this;
 	}
 
-	public String getCurrentRepositoryName()
-	{
+	public String getCurrentRepositoryName() throws InterruptedException {
+		Thread.sleep(1000);
 		return linkCurrentRepository.getText();
 	}
 

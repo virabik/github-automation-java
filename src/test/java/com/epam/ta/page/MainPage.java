@@ -14,11 +14,8 @@ public class MainPage extends AbstractPage
 {
 	private final String BASE_URL = "https://github.com/";
 
-	@FindBy(xpath = "//summary[contains(@aria-label, 'Create new')]")
+	@FindBy(xpath = "(//span[contains(text(), 'New')])[1]")
 	private WebElement buttonCreateNew;
-
-	@FindBy(xpath = "//a[contains(text(), 'New repository')]")
-	private WebElement linkNewRepository;
 
 	private final By linkLoggedInUserLocator = By.xpath("//meta[@name='user-login']");
 
@@ -28,10 +25,8 @@ public class MainPage extends AbstractPage
 		PageFactory.initElements(this.driver, this);
 	}
 
-	public CreateNewRepositoryPage invokeNewRepositoryCreation()
-	{
+	public CreateNewRepositoryPage invokeNewRepositoryCreation() {
 		buttonCreateNew.click();
-		linkNewRepository.click();
 		return new CreateNewRepositoryPage(driver);
 	}
 

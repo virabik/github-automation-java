@@ -12,8 +12,7 @@ import static org.hamcrest.Matchers.is;
 
 public class UserAccessTests extends CommonConditions {
 	@Test
-	public void oneCanLoginGithub()
-	{
+	public void oneCanLoginGithub() throws Exception {
 		User testUser = UserCreator.withCredentialsFromProperty();
 		String loggedInUserName = new LoginPage(driver)
 				.openPage()

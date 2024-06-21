@@ -16,9 +16,8 @@ public class RepositoryManagementTests extends CommonConditions {
     protected static final int REPOSITORY_NAME_POSTFIX_LENGTH = 6;
     protected static final String REPOSITORY_DESCRIPTION = "auto-generated test repo";
 
-    @Test(description = "JIRA-7566")
-    public void oneCanCreateProject()
-    {
+    @Test()
+    public void oneCanCreateProject() throws Exception {
         User testUser = UserCreator.withCredentialsFromProperty();
         String expectedRepositoryName = StringUtils.generateRandomRepositoryNameWithPostfixLength(REPOSITORY_NAME_POSTFIX_LENGTH);
         String createdRepositoryName = new LoginPage(driver)
@@ -31,9 +30,8 @@ public class RepositoryManagementTests extends CommonConditions {
         assertThat(createdRepositoryName, is(equalTo(expectedRepositoryName)));
     }
 
-    @Test(description = "JIRA-7567")
-    public void newProjectsAreEmpty()
-    {
+    @Test()
+    public void newProjectsAreEmpty() throws Exception {
         User testUser = UserCreator.withCredentialsFromProperty();
         String testRepositoryName = StringUtils.generateRandomRepositoryNameWithPostfixLength(REPOSITORY_NAME_POSTFIX_LENGTH);
         boolean isCurrentRepositoryEmpty = new LoginPage(driver)

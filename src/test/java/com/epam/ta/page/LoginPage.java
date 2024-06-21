@@ -1,6 +1,7 @@
 package com.epam.ta.page;
 
 import com.epam.ta.model.User;
+import com.epam.ta.service.EmailVerifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -19,8 +20,14 @@ public class LoginPage extends AbstractPage
 	@FindBy(id = "password")
 	private WebElement inputPassword;
 
+	@FindBy(id = "otp")
+	private WebElement emailVerificationCode;
+
 	@FindBy(xpath = "//input[@value='Sign in']")
 	private WebElement buttonSubmit;
+
+	@FindBy(xpath = "(//input[@value='Ask me later'])[1]")
+	private WebElement askMeLater;
 
 
 
@@ -38,15 +45,17 @@ public class LoginPage extends AbstractPage
 		return this;
 	}
 
-	public MainPage login(User user)
-	{
+	public MainPage login(User user) throws Exception {
 		inputLogin.sendKeys(user.getUsername());
 		inputPassword.sendKeys(user.getPassword());
 		buttonSubmit.click();
+		Thread.sleep(3000);
+//		String verificationCode = EmailVerifier.getContent();
+//		emailVerificationCode.sendKeys(verificationCode);
+//		if (askMeLater.isDisplayed()) {
+//			askMeLater.click();
+//		}
 		logger.info("Login performed");
 		return new MainPage(driver);
 	}
-
-
-
 }
